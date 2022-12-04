@@ -20,7 +20,9 @@ namespace KiteConnect
 
         private string _apiKey;
         private string _accessToken;
+        private string _encToken;
         private bool _enableLogging;
+
         private WebProxy _proxy;
         private int _timeout;
 
@@ -100,6 +102,21 @@ namespace KiteConnect
         {
             _accessToken = AccessToken;
             _apiKey = APIKey;
+            if (!String.IsNullOrEmpty(Root)) this._root = Root;
+            _enableLogging = Debug;
+
+            _timeout = Timeout;
+            _proxy = Proxy;
+
+            ServicePointManager.DefaultConnectionLimit = Pool;
+        }
+
+        /// <summary>
+        /// Initialize a new Kite Connect client instance.
+        /// </summary>
+        public Kite(string enctoken, string Root = null, bool Debug = false, int Timeout = 7000, WebProxy Proxy = null, int Pool = 2)
+        {
+            _encToken = enctoken;
             if (!String.IsNullOrEmpty(Root)) this._root = Root;
             _enableLogging = Debug;
 
